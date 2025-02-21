@@ -98,7 +98,7 @@ variable "private_endpoints" {
   type = list(object({
     sub_resource_name   = optional(string, "blob")
     subnet_id           = string
-    private_dns_zone_id = string
+    private_dns_zone_id = optional(string)
   }))
   default = []
 
@@ -112,10 +112,14 @@ variable "private_endpoints" {
   }
 
   validation {
-    condition = alltrue([
-      for entry in var.private_endpoints :
-      element(split("/", entry.private_dns_zone_id), 8) == "privatelink.${entry.sub_resource_name}.core.windows.net"
-    ])
+    condition = (
+      var.private_endpoints == null ||
+      alltrue([
+        for entry in var.private_endpoints :
+        entry.private_dns_zone_id != null &&
+        element(split("/", entry.private_dns_zone_id), 8) == "privatelink.${entry.sub_resource_name}.core.windows.net"
+      ])
+    )
     error_message = "Invalid private_dns_zone_id attribute within var.private_endpoints. Expected a Private DNS Zone with the name 'privatelink.{sub_resource_name}.core.windows.net'"
   }
 }
