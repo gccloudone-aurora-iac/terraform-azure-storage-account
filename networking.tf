@@ -18,8 +18,8 @@ resource "azurerm_private_endpoint" "this" {
 
   dynamic "private_dns_zone_group" {
     for_each = each.value.private_dns_zone_id != null ? [1] : []
-      content {
-      name = "default"
+    content {
+      name                 = "default"
       private_dns_zone_ids = [each.value.private_dns_zone_id]
     }
   }
@@ -32,4 +32,8 @@ resource "azurerm_private_endpoint" "this" {
   }
 
   tags = var.tags
+
+  lifecycle {
+    ignore_changes = [private_dns_zone_group]
+  }
 }
