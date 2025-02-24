@@ -116,8 +116,9 @@ variable "private_endpoints" {
       var.private_endpoints == null ||
       alltrue([
         for entry in var.private_endpoints :
-        entry.private_dns_zone_id != null &&
-        element(split("/", entry.private_dns_zone_id), 8) == "privatelink.${entry.sub_resource_name}.core.windows.net"
+        entry.private_dns_zone_id == null ? true : (
+          element(split("/", entry.private_dns_zone_id), 8) == "privatelink.${entry.sub_resource_name}.core.windows.net"
+        )
       ])
     )
     error_message = "Invalid private_dns_zone_id attribute within var.private_endpoints. Expected a Private DNS Zone with the name 'privatelink.{sub_resource_name}.core.windows.net'"
