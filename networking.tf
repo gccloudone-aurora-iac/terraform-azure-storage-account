@@ -11,7 +11,7 @@ resource "azurerm_storage_account_network_rules" "this" {
 resource "azurerm_private_endpoint" "this" {
   for_each = { for index, endpoint in var.private_endpoints : index => endpoint }
 
-  name                = "${module.azure_resource_prefixes.private_endpoint_prefix}-${var.user_defined}-${each.value.sub_resource_name}"
+  name                = "${module.azure_resource_names.private_endpoint_name}-${var.user_defined}-${each.value.sub_resource_name}"
   resource_group_name = var.resource_group_name
   location            = var.azure_resource_attributes.location
   subnet_id           = each.value.subnet_id
@@ -25,7 +25,7 @@ resource "azurerm_private_endpoint" "this" {
   }
 
   private_service_connection {
-    name                           = "${module.azure_resource_prefixes.private_endpoint_prefix}-${var.user_defined}-${each.value.sub_resource_name}"
+    name                           = "${module.azure_resource_names.private_endpoint_name}-${var.user_defined}-${each.value.sub_resource_name}"
     private_connection_resource_id = azurerm_storage_account.this.id
     is_manual_connection           = false
     subresource_names              = [each.value.sub_resource_name]

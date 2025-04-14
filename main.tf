@@ -1,5 +1,5 @@
 module "storage_account_name" {
-  source = "git::https://github.com/gccloudone-aurora-iac/terraform-aurora-azure-resource-names-global.git?ref=v1.0.0"
+  source = "git::https://github.com/gccloudone-aurora-iac/terraform-aurora-azure-resource-names-global.git?ref=v2.0.0"
 
   user_defined = var.user_defined
 }

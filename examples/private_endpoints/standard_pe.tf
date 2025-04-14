@@ -80,13 +80,18 @@ resource "azurerm_private_dns_zone_virtual_network_link" "vnet_two" {
 module "example_storage" {
   source = "../../"
 
+  naming_convention = "gc"
+  user_defined      = "example"
+
   azure_resource_attributes = {
-    project     = "aur"
-    environment = "dev"
-    location    = azurerm_resource_group.storage.location
-    instance    = 0
+    department_code = "Gc"
+    owner           = "ABC"
+    project         = "aur"
+    environment     = "dev"
+    location        = azurerm_resource_group.storage.location
+    instance        = 0
   }
-  user_defined        = "example"
+
   resource_group_name = azurerm_resource_group.storage.name
 
   network_default_action = "Deny"
