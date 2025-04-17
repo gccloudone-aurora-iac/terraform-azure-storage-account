@@ -15,7 +15,7 @@ resource "azurerm_storage_account" "this" {
   access_tier              = var.access_tier
   is_hns_enabled           = var.hns_enabled
 
-  enable_https_traffic_only       = true
+  https_traffic_only_enabled      = true
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   public_network_access_enabled   = var.private_endpoints == [] ? false : var.public_network_access_enabled
