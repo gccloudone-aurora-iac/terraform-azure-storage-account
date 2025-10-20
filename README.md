@@ -63,3 +63,4 @@ Deploys and configures an Azure Storage Account.
 | Date       | Release | Change                                                                                                    |
 | ---------- | ------- | --------------------------------------------------------------------------------------------------------- |
 | 2025-01-25 | v1.0.0  | Initial v1.0.0 release                                                                                    |
+| 2025-10-20 | v2.0.1  | Pin minimum version of azurerm to 4.49.0                                                                  |
