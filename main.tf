@@ -14,6 +14,10 @@ resource "azurerm_storage_account" "this" {
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   public_network_access_enabled   = var.private_endpoints == [] ? false : var.public_network_access_enabled
 
+  network_rules {
+    default_action = "Deny"
+  }
+
   dynamic "static_website" {
     for_each = var.static_website.index_document == "" ? [] : [1]
     content {
